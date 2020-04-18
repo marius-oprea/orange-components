@@ -1,0 +1,11 @@
+.tooltip {
+  background-color: lightblue;
+  border: 1px solid red;
+  color: blue;
+  width: 300px;
+  height: 100px;   
+  overflow: hidden; 
+  position: absolute;
+  // display: inline-block;
+  z-index: 100;
+}
