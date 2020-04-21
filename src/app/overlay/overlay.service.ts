@@ -94,23 +94,26 @@ export class OverlayService {
   setElementPosition(overlayKey: string) {
     if (this.overlayMap[overlayKey] && this.overlayMap[overlayKey].parentElementRef && this.overlayMap[overlayKey].element) {
       setTimeout(() => {
-        const elementRectangle = this.overlayMap[overlayKey].element.querySelector('#overlayContent').getBoundingClientRect()
-        const parentRectangle = this.overlayMap[overlayKey].parentElementRef.nativeElement.getBoundingClientRect();
+        const overlayContent = this.overlayMap[overlayKey].element.querySelector('#overlayContent');
+        if (overlayContent) {
+          const elementRectangle = overlayContent.getBoundingClientRect();
+          const parentRectangle = this.overlayMap[overlayKey].parentElementRef.nativeElement.getBoundingClientRect();
 
-        let left = parentRectangle.x;
-        let top = parentRectangle.y + parentRectangle.height;
+          let left = parentRectangle.x;
+          let top = parentRectangle.y + parentRectangle.height;
 
-        if (parentRectangle.x + parentRectangle.width + elementRectangle.width >= window.innerWidth) {
-          left = window.innerWidth - elementRectangle.width;
+          if (parentRectangle.x + parentRectangle.width + elementRectangle.width >= window.innerWidth) {
+            left = window.innerWidth - elementRectangle.width;
+          }
+
+          if (parentRectangle.y + parentRectangle.height + elementRectangle.height >= window.innerHeight) {
+            top = window.innerHeight - elementRectangle.height - parentRectangle.height;
+          }
+
+          this.overlayMap[overlayKey].element.style.position = 'absolute';
+          this.overlayMap[overlayKey].element.style.left = left + 'px';
+          this.overlayMap[overlayKey].element.style.top = top + 'px';
         }
-
-        if (parentRectangle.y + parentRectangle.height + elementRectangle.height >= window.innerHeight) {
-          top = window.innerHeight - elementRectangle.height - parentRectangle.height;
-        }
-
-        this.overlayMap[overlayKey].element.style.position = 'absolute';
-        this.overlayMap[overlayKey].element.style.left = left + 'px';
-        this.overlayMap[overlayKey].element.style.top = top + 'px';
       }, 0);
     }
   }
