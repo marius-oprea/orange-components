@@ -36,7 +36,7 @@ export class OverlayService {
     this.overlayMap = {};
   }
 
-  attach(component: Type<any>, data?: any, isFullscreen: boolean = true) {
+  attach(component: Type<any>, data?: any, isFullscreen: boolean = true, isModal: boolean = true) {
     if (this.overlayMap[component.name] && this.overlayMap[component.name].isAttached) {
       return;
     }
@@ -60,6 +60,7 @@ export class OverlayService {
     if (isFullscreen !== undefined) {
       this.componentRef.instance.isFullscreen$.next(isFullscreen);
     }
+    this.componentRef.instance.isModal = isModal;
 
     this.appRef.attachView(this.componentRef.hostView);
 

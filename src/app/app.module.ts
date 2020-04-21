@@ -6,7 +6,7 @@ import { ToasterModule } from './toaster/toaster.module';
 import { TooltipModule } from './tooltip/tooltip.module';
 import { OverlayModule } from './overlay/overlay.module';
 import { DialogModule } from './dialog/dialog.module';
-import { TestDialog } from './TestDialog/test-dialog.module';
+import { TestDialogModule } from './TestDialog/test-dialog.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,7 @@ import { TestDialog } from './TestDialog/test-dialog.module';
     BrowserModule,
     ToasterModule,
     TooltipModule,
-    TestDialog,
+    TestDialogModule,
     OverlayModule,
     DialogModule
   ],

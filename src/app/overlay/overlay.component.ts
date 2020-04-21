@@ -14,9 +14,9 @@ export class OverlayComponent implements AfterViewInit, OnDestroy {
   data: any;
   overlayService: OverlayService;
   isFullscreen$: BehaviorSubject<boolean>;
+  isModal: boolean;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-
     this.isFullscreen$ = new BehaviorSubject(true);
   }
 
@@ -35,7 +35,9 @@ export class OverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   onClickOverlay(event: Event) {
-    this.overlayService.detach(this.component);
+    if (this.isModal) {
+      this.overlayService.detach(this.component);
+    }
   }
 
   ngOnDestroy() {

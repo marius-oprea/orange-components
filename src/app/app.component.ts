@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ToasterService } from './toaster/toaster.service';
 import { OverlayService } from './overlay/overlay.service';
 import { DialogService } from './dialog/dialog.service';
-import { TestDialog } from './TestDialog/test-dialog.module';
 import { TestDialogComponent } from './TestDialog/test-dialog.component';
 
 @Component({
@@ -23,7 +22,11 @@ export class AppComponent {
     alert('click');
   }
 
-  onDialog(event) {
+  onModalDialog(event) {
     this.dialogService.open(TestDialogComponent);
+  }
+
+  onNonModalDialog(event) {
+    this.dialogService.open(TestDialogComponent, false);
   }
 }
