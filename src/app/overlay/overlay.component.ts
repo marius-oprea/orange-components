@@ -15,8 +15,7 @@ export class OverlayComponent implements AfterViewInit, OnDestroy {
   overlayService: OverlayService;
   isFullscreen$: BehaviorSubject<boolean>;
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
 
     this.isFullscreen$ = new BehaviorSubject(true);
   }

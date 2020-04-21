@@ -1,3 +1,5 @@
 <div [ngClass]="{'overlay': isFullscreen$ | async}" (click)="onClickOverlay($event)">
-  <ng-template appHost></ng-template>
+  <div [ngClass]="{'dialog': isFullscreen$ | async}">
+    <ng-template appHost></ng-template>
+  </div>
 </div>

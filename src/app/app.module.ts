@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { ToasterModule } from './toaster/toaster.module';
 import { TooltipModule } from './tooltip/tooltip.module';
 import { OverlayModule } from './overlay/overlay.module';
+import { DialogModule } from './dialog/dialog.module';
+import { TestDialog } from './TestDialog/test-dialog.module';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { OverlayModule } from './overlay/overlay.module';
     BrowserModule,
     ToasterModule,
     TooltipModule,
-    OverlayModule
+    TestDialog,
+    OverlayModule,
+    DialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

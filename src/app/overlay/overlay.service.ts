@@ -78,7 +78,9 @@ export class OverlayService {
     }
 
     this.overlayMap[component.name] = overlayItem;
-    this.setElementPosition(component.name);
+    if (!isFullscreen) {
+      this.setElementPosition(component.name);
+    }
   }
 
   setElementPosition(overlayKey: string) {
