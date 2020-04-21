@@ -110,7 +110,7 @@ export class OverlayService {
             top = window.innerHeight - elementRectangle.height - parentRectangle.height;
           }
 
-          this.overlayMap[overlayKey].element.style.position = 'absolute';
+          this.overlayMap[overlayKey].element.style.position = 'fixed';
           this.overlayMap[overlayKey].element.style.left = left + 'px';
           this.overlayMap[overlayKey].element.style.top = top + 'px';
         }
