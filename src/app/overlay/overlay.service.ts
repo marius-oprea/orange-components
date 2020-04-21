@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { OverlayComponent } from './overlay.component';
 import { DOCUMENT } from '@angular/common';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class OverlayService {
@@ -19,8 +20,9 @@ export class OverlayService {
   private componentRef: any;
   private renderer: Renderer2;
   private element;
-  private parentElementRef: ElementRef;
+  // private parentElementRef: ElementRef;
   showFullscreen: boolean;
+  // private overlayRef: Subject<any>;
 
   overlayMap: {[uniqueKey: string]: any};
 
@@ -36,7 +38,7 @@ export class OverlayService {
     this.overlayMap = {};
   }
 
-  attach(component: Type<any>, data?: any, isFullscreen: boolean = true, isModal: boolean = true) {
+  attach(component: Type<any>, data?: any, isFullscreen: boolean = true, isModal: boolean = true): Observable<any> {
     if (this.overlayMap[component.name] && this.overlayMap[component.name].isAttached) {
       return;
     }
@@ -44,6 +46,7 @@ export class OverlayService {
     const overlayItem = {
       isAttached: false,
       componentRef: null,
+      overlayRef: null,
       parentElementRef: null,
       element: null
     };
@@ -78,10 +81,14 @@ export class OverlayService {
       overlayItem.parentElementRef = this.overlayMap[component.name].parentElementRef;
     }
 
+    overlayItem.overlayRef = new Subject();
     this.overlayMap[component.name] = overlayItem;
     if (!isFullscreen) {
       this.setElementPosition(component.name);
     }
+
+
+    return this.overlayMap[component.name].overlayRef;
   }
 
   setElementPosition(overlayKey: string) {
@@ -113,6 +120,7 @@ export class OverlayService {
       this.appRef.detachView(this.overlayMap[component.name].componentRef.hostView);
       this.renderer.removeChild(this.document.body, this.overlayMap[component.name].element);
       this.overlayMap[component.name].isAttached = false;
+      this.overlayMap[component.name].overlayRef.next();
     }
   }
 

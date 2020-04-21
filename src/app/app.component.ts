@@ -23,10 +23,10 @@ export class AppComponent {
   }
 
   onModalDialog(event) {
-    this.dialogService.open(TestDialogComponent);
+    this.dialogService.open(TestDialogComponent).subscribe(res => console.log('modal inchis'));
   }
 
   onNonModalDialog(event) {
-    this.dialogService.open(TestDialogComponent, false);
+    this.dialogService.open(TestDialogComponent, false).subscribe(res => console.log('non-modal inchis'));
   }
 }
