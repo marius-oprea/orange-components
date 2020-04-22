@@ -12,20 +12,15 @@ import {
 } from '@angular/core';
 import { OverlayComponent } from './overlay.component';
 import { DOCUMENT } from '@angular/common';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class OverlayService {
-  private component: Type<any>;
   private componentRef: any;
   private renderer: Renderer2;
   private element;
-  // private parentElementRef: ElementRef;
   showFullscreen: boolean;
-  // private overlayRef: Subject<any>;
-
   overlayMap: {[uniqueKey: string]: any};
-
 
   constructor(
     private rendererFactory: RendererFactory2,
@@ -59,6 +54,7 @@ export class OverlayService {
 
     this.componentRef.instance.overlayService = this;
     this.componentRef.instance.component = component;
+    this.componentRef.instance.data = data;
 
     if (isFullscreen !== undefined) {
       this.componentRef.instance.isFullscreen$.next(isFullscreen);
@@ -87,7 +83,6 @@ export class OverlayService {
       this.setElementPosition(component.name);
     }
 
-
     return this.overlayMap[component.name].overlayRef;
   }
 
@@ -95,9 +90,17 @@ export class OverlayService {
     if (this.overlayMap[overlayKey] && this.overlayMap[overlayKey].parentElementRef && this.overlayMap[overlayKey].element) {
       setTimeout(() => {
         const overlayContent = this.overlayMap[overlayKey].element.querySelector('#overlayContent');
+
         if (overlayContent) {
           const elementRectangle = overlayContent.getBoundingClientRect();
-          const parentRectangle = this.overlayMap[overlayKey].parentElementRef.nativeElement.getBoundingClientRect();
+
+          let parentRectangle;
+
+          if (this.overlayMap[overlayKey].parentElementRef.nativeElement) {
+            parentRectangle = this.overlayMap[overlayKey].parentElementRef.nativeElement.getBoundingClientRect();
+          } else {
+            parentRectangle = this.overlayMap[overlayKey].parentElementRef.getBoundingClientRect();
+          }
 
           let left = parentRectangle.x;
           let top = parentRectangle.y + parentRectangle.height;
@@ -127,6 +130,14 @@ export class OverlayService {
     }
   }
 
+  isAttached(component: Type<any>) {
+    if (!this.overlayMap[component.name]) {
+      return false;
+    }
+
+    return this.overlayMap[component.name].isAttached;
+  }
+
   setParentElement(overlayKey, parentRef: ElementRef) {
     const overlayItem = {
       isAttached: false,
@@ -134,7 +145,10 @@ export class OverlayService {
       parentElementRef: null,
       element: null
     };
-    this.overlayMap[overlayKey] = overlayItem;
+
+    if (!this.overlayMap[overlayKey]) {
+      this.overlayMap[overlayKey] = overlayItem;
+    }
     this.overlayMap[overlayKey].parentElementRef = parentRef;
   }
 }

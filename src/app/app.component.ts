@@ -29,4 +29,8 @@ export class AppComponent {
   onNonModalDialog(event) {
     this.dialogService.open(TestDialogComponent, false).subscribe(res => console.log('non-modal inchis'));
   }
+
+  onTR(event) {
+
+  }
 }

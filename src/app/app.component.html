@@ -1,3 +1,13 @@
+<button class="tr" appContextMenu [template]="contextMenu" (click)="onTR($event)">TR</button>
+
+<ng-template #contextMenu>
+  NISC
+  <br>
+  cu  
+</ng-template>
+
+
+
 <button (click)="onToaster($event)">TOASTER</button>
 
 <br>
@@ -25,3 +35,4 @@
 <br>
 
 <button (click)="onNonModalDialog($event)">NON-MODAL DIALOG</button>
+

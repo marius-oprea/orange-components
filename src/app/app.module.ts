@@ -7,6 +7,7 @@ import { TooltipModule } from './tooltip/tooltip.module';
 import { OverlayModule } from './overlay/overlay.module';
 import { DialogModule } from './dialog/dialog.module';
 import { TestDialogModule } from './TestDialog/test-dialog.module';
+import { ContextMenuModule } from './context-menu/context-menu.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { TestDialogModule } from './TestDialog/test-dialog.module';
     TooltipModule,
     TestDialogModule,
     OverlayModule,
+    ContextMenuModule,
     DialogModule
   ],
   providers: [],
