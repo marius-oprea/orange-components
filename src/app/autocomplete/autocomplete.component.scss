@@ -1,0 +1,22 @@
+@import 'main';
+
+.autocomplete {
+  & .autocomplete__input {
+
+  }
+  & .autocomplete__nav {
+
+    & .nav__item {
+      &:hover {
+
+      }
+      & .item {
+
+      }
+    }
+  }
+}
+
+.selected {
+  border: 1px solid red;
+}

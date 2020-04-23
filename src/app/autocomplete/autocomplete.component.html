@@ -1,0 +1,30 @@
+<div class="autocomplete" [ngClass]="{ 'autocomplete--is-active': isVisible }">
+  <input class="autocomplete__input" #input name="autocomplete" [ngClass]="{ 'autocomplete__input--is-active': isVisible }"
+    [value]="inputValue" 
+    (input)="onInput($event.target.value)" 
+    (click)="onClick($event)" 
+    (focus)="onFocusInput($event)"
+    (blur)="onBlurInput($event)"
+    [disabled]="disabled"
+    autocomplete="off"
+    (keyup)="onKeyUp($event)"
+  >
+  <label for="autocomplete" class="autocomplete__label autocomplete__label--floating">{{ label }}</label>
+  
+  <ul class="autocomplete__nav" #list (focus)="onFocusList($event)" (blur)="onBlurList($event)">  
+    <li 
+      [ngClass]="{'selected' : i === selectedItemIndex}" 
+      class="nav__item" 
+      *ngFor="let item of items | filterBy:'label':inputValue:true;  let i = index;" 
+      (click)="onSelectedItem($event, item, i)"
+    >
+      <div>
+        {{item?.label}}
+      </div>
+      <div *ngIf="item?.subLabel">
+        {{item?.subLabel}}
+      </div>
+    </li>  
+  </ul>
+</div>
+

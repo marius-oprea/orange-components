@@ -32,6 +32,7 @@ export class OverlayComponent implements AfterViewInit, OnDestroy {
 
     const componentRef: any = viewContainerRef.createComponent(componentFactory);
     componentRef.instance.data = this.data;
+    componentRef.changeDetectorRef.detectChanges();
   }
 
   onClickOverlay(event: Event) {

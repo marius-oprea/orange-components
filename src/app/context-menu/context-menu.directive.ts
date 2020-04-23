@@ -37,7 +37,7 @@ show(event) {
           // clicked inside context menu
         } else {
           // clicked outside context menu
-          if (!this.overlayService.isAttached(ContextMenuComponent) && this.isVisible) {            
+          if (!this.overlayService.isAttached(ContextMenuComponent) && this.isVisible) {
 
             const data = {isVisible: true, template: this.template};
             this.overlayService.attach(ContextMenuComponent, data, false, false);
